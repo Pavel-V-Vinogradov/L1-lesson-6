@@ -1,7 +1,10 @@
 package model;
 
+import lombok.Getter;
+
 public class Cat extends Animals {
 
+    @Getter
     private static int count;
 
     public Cat(String name) {
@@ -11,14 +14,10 @@ public class Cat extends Animals {
         count++;
     }
 
-    public static int getCount() {
-        return count;
-    }
-
     @Override
     public void run(int distanceLength) {
         int factDistance = Math.min(distanceLength, getMaximumRunningDistance());
-        System.out.printf("\"%s\" пробежал%s %s из %s\n", getName(), getGenderSuffix(), factDistance, distanceLength );
+        System.out.printf("\"%s\" пробежал%s %s из %s\n", getName(), getGenderSuffix(), factDistance, distanceLength);
     }
 
     @Override
