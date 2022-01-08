@@ -63,19 +63,9 @@ public class Main {
         //@formatter:on
     }
 
-    private static void playAnimals(String[] nickNames, Class classAnimal) {
-        Animals[] animals = new Animals[nickNames.length];
-
-        for (int i = 0; i < nickNames.length; i++) {
-            if (classAnimal == Cat.class) {
-                animals[i] = new Cat(nickNames[i]);
-            } else if (classAnimal == Dog.class) {
-                animals[i] = new Dog(nickNames[i]);
-            } else {
-                System.out.println("\nВНИМАНИЕ: Класс " + classAnimal + " не поддерживается");
-                return;
-            }
-        }
+    private static void playAnimals(String[] nickNames, Class<? extends Animals> classAnimal) {
+        Animals[] animals = getAnimals(nickNames, classAnimal);
+        if (animals == null) return;
 
         int runCoeff = 1;
         int swimCoeff = 10;
@@ -88,5 +78,21 @@ public class Main {
             animal.run((int) ((Math.random() * runCoeff) + Math.random() * 100));
             animal.swim((int) ((Math.random() * swimCoeff) + Math.random() * 10));
         }
+    }
+
+    private static Animals[] getAnimals(String[] nickNames, Class<? extends Animals> classAnimal) {
+        Animals[] animals = new Animals[nickNames.length];
+
+        for (int i = 0; i < nickNames.length; i++) {
+            if (classAnimal == Cat.class) {
+                animals[i] = new Cat(nickNames[i]);
+            } else if (classAnimal == Dog.class) {
+                animals[i] = new Dog(nickNames[i]);
+            } else {
+                System.out.println("\nВНИМАНИЕ: Класс " + classAnimal + " не поддерживается");
+                return null;
+            }
+        }
+        return animals;
     }
 }
